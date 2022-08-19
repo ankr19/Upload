@@ -14,7 +14,7 @@ const cors = require('cors');
 connect();
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
@@ -23,7 +23,7 @@ app.use(express.json());
 app.use("/api/stockexchange", require("./routes/stockexchange"));
 
 app.listen(port, () => {
-  console.log(`app running on port http://localhost:${port}`);
+  console.log(`app running on port ${port}`);
 });
 
 
