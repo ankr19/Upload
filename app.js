@@ -11,6 +11,7 @@ this is json detail for the geting the stock from database;
 const express = require("express");
 const connect = require("./databases/db");
 const cors = require('cors');
+
 connect();
 
 const app = express();
