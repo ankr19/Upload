@@ -69,11 +69,11 @@ router.post("/poststock", async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
+
 // 2nd router for updating the value
-=======
+
 // 2nd router for getting the value
->>>>>>> 576160a (node js project)
+
 /*
 api : http://localhost:5000/api/stockexchange/stock
 route: post
