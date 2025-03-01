@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { addGetValue, addInput } from "@/firebase/FirebaseFunction";
+import { addGetValue, addInput, deleteInput, updateInput } from "@/firebase/FirebaseFunction";
 
 const MultiInputForm = () => {
   const [inputValues, setInputValues] = useState({
@@ -12,6 +12,7 @@ const MultiInputForm = () => {
   });
 
   const [entries, setEntries] = useState([]);
+  const [updateStatus, setUpdateStatus] = React.useState(false);
 
   const getData = async ()=>{
    let v = await addGetValue()
@@ -43,12 +44,15 @@ const MultiInputForm = () => {
       const updatedEntries = [...entries];
       updatedEntries[existingIndex] = inputValues;
       setEntries(updatedEntries);
+      updateInput(inputValues);
       alert("Details updated successfully!");
+      setUpdateStatus(false);
     } else {
       // Add new entry
       setEntries([...entries, inputValues]);
       addInput(inputValues); // Save to Firebase
       alert("New entry added successfully!");
+      setUpdateStatus(false);
     }
 
     // Clear input fields
@@ -56,14 +60,16 @@ const MultiInputForm = () => {
   };
 
   // Delete an Entry
-  const handleDelete = (id) => {
-    const updatedEntries = entries.filter((entry) => entry.id !== id);
+  const handleDelete = (v) => {
+    const updatedEntries = entries.filter((entry) => entry.id !== v.id);
+    deleteInput(v.sid);
     setEntries(updatedEntries);
     alert("Entry deleted successfully!");
   };
 
   // Load data into input fields for editing
   const handleEdit = (entry) => {
+    setUpdateStatus(true);
     setInputValues(entry);
   };
 
@@ -80,7 +86,7 @@ const MultiInputForm = () => {
           onChange={(e) => setInputValues({ ...inputValues, id: e.target.value })}
           className="w-full px-3 py-2 border rounded-md"
           placeholder="Enter ID"
-          disabled={inputValues.id !== ""} // Disable if editing an existing entry
+          disabled={updateStatus}
         />
       </div>
 
@@ -135,7 +141,7 @@ const MultiInputForm = () => {
                     ✏️ Edit
                   </button>
                   <button
-                    onClick={() => handleDelete(entry.id)}
+                    onClick={() => handleDelete(entry)}
                     className="text-red-500 hover:text-red-700"
                   >
                     ❌ Delete
