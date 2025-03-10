@@ -1,5 +1,5 @@
 "use client";
-
+import React from 'react'
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { db, storage } from "@/firebase/FirebaseConfig";
 import moment from "moment/moment";
+import Loading from "./Loading";
 
 const MovieBlogForm = () => {
   const [formData, setFormData] = useState({
@@ -119,8 +120,24 @@ const MovieBlogForm = () => {
     }
   };
 
+
+  const [loading, setLoading] = React.useState(true);
+  
+  // Sample animation data - You would import your own Lottie JSON here
+  const animationData = {/* Your Lottie animation JSON data */};
+  
+  React.useEffect(() => {
+    // Simulate content loading
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+    
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="max-w-2xl mx-auto p-6">
+      <Loading isLoading={loading}>
       <Card>
         <CardContent className="p-6">
           <h2 className="text-xl font-bold mb-4">Add a Movie Blog Post</h2>
@@ -327,6 +344,7 @@ const MovieBlogForm = () => {
           </form>
         </CardContent>
       </Card>
+      </Loading>
     </div>
   );
 };

@@ -17,6 +17,7 @@
     "clsx": "^2.1.1",
     "firebase": "^11.4.0",
     "framer-motion": "^12.4.7",
+    "lottie-react": "^2.4.1",
     "lucide-react": "^0.476.0",
     "moment": "^2.30.1",
     "next": "15.2.0",
