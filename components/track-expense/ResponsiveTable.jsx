@@ -21,10 +21,10 @@ import {
 } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Settings } from 'lucide-react';
-import { useTheme } from './ThemeProvider';
+// import { useTheme } from './ThemeProvider';
 
 const ResponsiveTable = () => {
-  const { theme, toggleTheme } = useTheme();
+//   const { theme, toggleTheme } = useTheme();
   const [selectedRows, setSelectedRows] = useState([]);
   const [columns, setColumns] = useState({
     id: true,
@@ -72,13 +72,13 @@ const ResponsiveTable = () => {
     .map(([columnName]) => columnName);
 
   return (
-    <div className={`min-h-screen p-4 ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-white text-gray-900'}`}>
+    <div className={`min-h-screen p-4 bg-white text-gray-900'}`}>
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Task Management</h1>
         <div className="flex space-x-2">
-          <Button variant="outline" onClick={toggleTheme}>
+          {/* <Button variant="outline" onClick={toggleTheme}>
             {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-          </Button>
+          </Button> */}
           
           <Sheet>
             <SheetTrigger asChild>
@@ -86,7 +86,7 @@ const ResponsiveTable = () => {
                 <Settings className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent className={theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'}>
+            <SheetContent className={'bg-white text-gray-900'}>
               <SheetHeader>
                 <SheetTitle>Column Visibility</SheetTitle>
               </SheetHeader>
@@ -113,7 +113,7 @@ const ResponsiveTable = () => {
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow className={theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'}>
+              <TableRow className={'bg-gray-100'}>
                 <TableHead className="w-12">
                   <Checkbox 
                     checked={selectedRows.length === data.length}
@@ -137,10 +137,10 @@ const ResponsiveTable = () => {
                     exit={{ opacity: 0 }}
                     className={`${
                       selectedRows.includes(row.id) 
-                        ? theme === 'dark' ? 'bg-gray-700' : 'bg-blue-50' 
-                        : theme === 'dark' ? 'bg-gray-900' : 'bg-white'
+                        ?  'bg-blue-50' 
+                        :  'bg-white'
                     } hover:${
-                      theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'
+                      'bg-gray-50'
                     }`}
                   >
                     <TableCell>
@@ -167,11 +167,11 @@ const ResponsiveTable = () => {
 
 // Theme provider component
 const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('light');
+//   const [theme, setTheme] = useState('light');
 
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
-  };
+//   const toggleTheme = () => {
+//     setTheme(prev => prev === 'light' ? 'dark' : 'light');
+//   };
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
@@ -180,14 +180,14 @@ const ThemeProvider = ({ children }) => {
   );
 };
 
-const ThemeContext = React.createContext({
-  theme: 'light',
-  toggleTheme: () => {},
-});
+// const ThemeContext = React.createContext({
+//   theme: 'light',
+//   toggleTheme: () => {},
+// });
 
-const useTheme = () => {
-  return React.useContext(ThemeContext);
-};
+// const useTheme = () => {
+//   return React.useContext(ThemeContext);
+// };
 
-export { ThemeProvider, useTheme };
+// export { ThemeProvider, useTheme };
 export default ResponsiveTable;
